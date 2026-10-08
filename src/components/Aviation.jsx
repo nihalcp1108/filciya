@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Compass, Wind, Navigation, Plane, Sparkles } from 'lucide-react';
+import { Compass, Navigation, Plane } from 'lucide-react';
 import aviatorImg from '../assets/photos/photo_6172472538635028065_y.jpg';
 
 const statementLines = ['THE JOURNEY', 'STARTS', 'BEFORE', 'THE TAKEOFF.'];
@@ -24,8 +24,8 @@ export default function Aviation() {
           top: '30%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '700px',
-          height: '700px',
+          width: 'clamp(300px, 60vw, 700px)',
+          height: 'clamp(300px, 60vw, 700px)',
           background: 'radial-gradient(circle, rgba(112, 153, 194, 0.08) 0%, transparent 70%)',
           pointerEvents: 'none'
         }}
@@ -33,11 +33,11 @@ export default function Aviation() {
 
       <div className="container">
         {/* Section Header */}
-        <div style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto 4.5rem' }}>
+        <div style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto clamp(2.5rem, 6vw, 4.5rem)' }}>
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6 }}
             className="section-tag"
             style={{ justifyContent: 'center' }}
@@ -48,7 +48,7 @@ export default function Aviation() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.8, delay: 0.1 }}
             className="section-title"
           >
@@ -58,10 +58,10 @@ export default function Aviation() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.8, delay: 0.2 }}
             style={{
-              fontSize: '1.05rem',
+              fontSize: 'clamp(0.95rem, 2vw, 1.05rem)',
               color: 'var(--text-secondary)',
               lineHeight: 1.7,
               fontWeight: 300,
@@ -75,11 +75,11 @@ export default function Aviation() {
         {/* Large Statement Scroll Reveal */}
         <div
           style={{
-            margin: '3rem 0 5rem',
+            margin: 'clamp(2rem, 5vw, 3.5rem) 0 clamp(3rem, 7vw, 5rem)',
             textAlign: 'center',
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.2rem'
+            gap: '0.15rem'
           }}
         >
           {statementLines.map((line, index) => (
@@ -87,20 +87,21 @@ export default function Aviation() {
               <motion.span
                 initial={{ y: '100%', opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true, margin: '-60px' }}
+                viewport={{ once: true, margin: '-40px' }}
                 transition={{
-                  duration: 0.85,
-                  delay: index * 0.18,
+                  duration: 0.8,
+                  delay: index * 0.15,
                   ease: [0.16, 1, 0.3, 1]
                 }}
                 style={{
                   display: 'inline-block',
                   fontFamily: 'var(--font-serif)',
-                  fontSize: 'clamp(2.4rem, 6.2vw, 5.2rem)',
+                  fontSize: 'clamp(1.9rem, 6.2vw, 5.2rem)',
                   fontWeight: index === 3 ? 600 : 300,
                   letterSpacing: index === 3 ? '0.04em' : '0.02em',
                   color: index === 3 ? 'var(--gold-primary)' : 'rgba(255, 255, 255, 0.92)',
-                  fontStyle: index % 2 === 1 ? 'italic' : 'normal'
+                  fontStyle: index % 2 === 1 ? 'italic' : 'normal',
+                  lineHeight: 1.15
                 }}
               >
                 {line}
@@ -114,7 +115,7 @@ export default function Aviation() {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(12, 1fr)',
-            gap: '2.5rem',
+            gap: 'clamp(1.75rem, 4vw, 2.5rem)',
             alignItems: 'center'
           }}
           className="aviation-grid"
@@ -124,15 +125,15 @@ export default function Aviation() {
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 position: 'relative',
-                borderRadius: '24px',
+                borderRadius: '22px',
                 overflow: 'hidden',
                 background: 'var(--bg-secondary)',
                 border: '1px solid rgba(212, 175, 55, 0.25)',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)'
+                boxShadow: '0 20px 45px -12px rgba(0, 0, 0, 0.7)'
               }}
             >
               <img
@@ -140,7 +141,7 @@ export default function Aviation() {
                 alt="Filciya PS with aviator sunglasses"
                 style={{
                   width: '100%',
-                  height: '520px',
+                  height: 'clamp(360px, 55vw, 520px)',
                   objectFit: 'cover',
                   objectPosition: 'center 20%',
                   display: 'block'
@@ -153,7 +154,7 @@ export default function Aviation() {
                 style={{
                   position: 'absolute',
                   inset: 0,
-                  background: 'linear-gradient(to top, rgba(6, 8, 14, 0.85) 0%, transparent 40%)',
+                  background: 'linear-gradient(to top, rgba(6, 8, 14, 0.88) 0%, transparent 42%)',
                   pointerEvents: 'none'
                 }}
               />
@@ -162,18 +163,19 @@ export default function Aviation() {
               <div
                 style={{
                   position: 'absolute',
-                  top: '1.25rem',
-                  right: '1.25rem',
-                  padding: '0.5rem 0.8rem',
+                  top: '1rem',
+                  right: '1rem',
+                  padding: '0.45rem 0.75rem',
                   borderRadius: '9999px',
-                  background: 'rgba(8, 12, 20, 0.7)',
+                  background: 'rgba(8, 12, 20, 0.75)',
                   backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
                   border: '1px solid rgba(255, 255, 255, 0.1)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.4rem',
+                  gap: '0.35rem',
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '0.65rem',
+                  fontSize: '0.62rem',
                   color: 'var(--gold-primary)',
                   letterSpacing: '0.1em'
                 }}
@@ -186,17 +188,17 @@ export default function Aviation() {
               <div
                 style={{
                   position: 'absolute',
-                  bottom: '1.5rem',
-                  left: '1.5rem',
-                  right: '1.5rem'
+                  bottom: 'clamp(1rem, 3vw, 1.5rem)',
+                  left: 'clamp(1rem, 3vw, 1.5rem)',
+                  right: 'clamp(1rem, 3vw, 1.5rem)'
                 }}
               >
                 <div
                   style={{
                     fontFamily: 'var(--font-serif)',
-                    fontSize: '1.4rem',
+                    fontSize: 'clamp(1.2rem, 3vw, 1.45rem)',
                     color: '#fff',
-                    marginBottom: '0.2rem'
+                    marginBottom: '0.15rem'
                   }}
                 >
                   Clear Horizons
@@ -204,9 +206,9 @@ export default function Aviation() {
                 <div
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.72rem',
+                    fontSize: 'clamp(0.65rem, 1.8vw, 0.72rem)',
                     color: 'var(--text-secondary)',
-                    letterSpacing: '0.1em'
+                    letterSpacing: '0.08em'
                   }}
                 >
                   INSPIRATION & COURAGE TOWARD THE SKIES
@@ -221,21 +223,22 @@ export default function Aviation() {
               gridColumn: 'span 6',
               display: 'flex',
               flexDirection: 'column',
-              gap: '1.75rem'
+              gap: '1.5rem'
             }}
             className="aviation-data-col"
           >
             {/* Editorial Boarding Pass */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 25 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.9, delay: 0.1 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.85, delay: 0.1 }}
               style={{
-                borderRadius: '20px',
-                background: 'rgba(12, 17, 29, 0.85)',
+                borderRadius: '18px',
+                background: 'rgba(12, 17, 29, 0.88)',
                 border: '1px solid rgba(212, 175, 55, 0.28)',
                 backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
                 position: 'relative',
                 overflow: 'hidden',
                 boxShadow: '0 20px 40px rgba(0, 0, 0, 0.5)'
@@ -244,33 +247,35 @@ export default function Aviation() {
               {/* Pass Top Bar */}
               <div
                 style={{
-                  padding: '1.25rem 1.75rem',
+                  padding: 'clamp(0.9rem, 2vw, 1.25rem) clamp(1.15rem, 3vw, 1.75rem)',
                   background: 'rgba(212, 175, 55, 0.08)',
                   borderBottom: '1px dashed rgba(212, 175, 55, 0.25)',
                   display: 'flex',
                   justifyContent: 'space-between',
-                  alignItems: 'center'
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: '0.5rem'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                  <Plane size={18} color="var(--gold-primary)" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Plane size={16} color="var(--gold-primary)" />
                   <span
                     style={{
                       fontFamily: 'var(--font-mono)',
-                      fontSize: '0.75rem',
-                      letterSpacing: '0.18em',
+                      fontSize: 'clamp(0.65rem, 1.8vw, 0.72rem)',
+                      letterSpacing: '0.14em',
                       color: 'var(--gold-primary)',
                       textTransform: 'uppercase',
                       fontWeight: 600
                     }}
                   >
-                    BOARDING RECORD · ACADEMIC JOURNEY
+                    BOARDING RECORD · CADET
                   </span>
                 </div>
                 <span
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.68rem',
+                    fontSize: '0.65rem',
                     color: 'var(--text-muted)',
                     letterSpacing: '0.1em'
                   }}
@@ -280,20 +285,22 @@ export default function Aviation() {
               </div>
 
               {/* Pass Content Body */}
-              <div style={{ padding: '1.75rem' }}>
+              <div style={{ padding: 'clamp(1.15rem, 3vw, 1.75rem)' }}>
                 <div
                   style={{
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    marginBottom: '1.75rem'
+                    gap: '0.75rem',
+                    marginBottom: '1.5rem',
+                    flexWrap: 'wrap'
                   }}
                 >
                   <div>
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.65rem',
+                        fontSize: '0.62rem',
                         color: 'var(--text-muted)',
                         letterSpacing: '0.15em',
                         display: 'block'
@@ -304,9 +311,10 @@ export default function Aviation() {
                     <span
                       style={{
                         fontFamily: 'var(--font-serif)',
-                        fontSize: '1.8rem',
+                        fontSize: 'clamp(1.4rem, 4vw, 1.8rem)',
                         color: '#fff',
-                        fontWeight: 600
+                        fontWeight: 600,
+                        lineHeight: 1.1
                       }}
                     >
                       TIRUR
@@ -314,7 +322,7 @@ export default function Aviation() {
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.7rem',
+                        fontSize: '0.65rem',
                         color: 'var(--gold-primary)',
                         display: 'block'
                       }}
@@ -329,17 +337,17 @@ export default function Aviation() {
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
-                      gap: '0.3rem'
+                      gap: '0.25rem'
                     }}
                   >
                     <Plane
-                      size={20}
+                      size={18}
                       color="var(--gold-primary)"
                       style={{ transform: 'rotate(90deg)' }}
                     />
                     <div
                       style={{
-                        width: '80px',
+                        width: 'clamp(40px, 12vw, 80px)',
                         height: '1px',
                         borderTop: '1px dashed rgba(212, 175, 55, 0.4)'
                       }}
@@ -347,9 +355,10 @@ export default function Aviation() {
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.6rem',
+                        fontSize: '0.55rem',
                         color: 'var(--sky-blue)',
-                        letterSpacing: '0.1em'
+                        letterSpacing: '0.1em',
+                        whiteSpace: 'nowrap'
                       }}
                     >
                       DIRECT EXPEDITION
@@ -360,7 +369,7 @@ export default function Aviation() {
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.65rem',
+                        fontSize: '0.62rem',
                         color: 'var(--text-muted)',
                         letterSpacing: '0.15em',
                         display: 'block'
@@ -371,9 +380,10 @@ export default function Aviation() {
                     <span
                       style={{
                         fontFamily: 'var(--font-serif)',
-                        fontSize: '1.8rem',
+                        fontSize: 'clamp(1.4rem, 4vw, 1.8rem)',
                         color: '#fff',
-                        fontWeight: 600
+                        fontWeight: 600,
+                        lineHeight: 1.1
                       }}
                     >
                       THE SKIES
@@ -381,7 +391,7 @@ export default function Aviation() {
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.7rem',
+                        fontSize: '0.65rem',
                         color: 'var(--gold-primary)',
                         display: 'block'
                       }}
@@ -395,9 +405,9 @@ export default function Aviation() {
                 <div
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(3, 1fr)',
-                    gap: '1rem',
-                    paddingTop: '1.25rem',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(85px, 1fr))',
+                    gap: '0.85rem',
+                    paddingTop: '1.15rem',
                     borderTop: '1px solid rgba(255, 255, 255, 0.08)'
                   }}
                 >
@@ -405,7 +415,7 @@ export default function Aviation() {
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.62rem',
+                        fontSize: '0.6rem',
                         color: 'var(--text-muted)',
                         display: 'block'
                       }}
@@ -415,7 +425,7 @@ export default function Aviation() {
                     <span
                       style={{
                         fontFamily: 'var(--font-sans)',
-                        fontSize: '0.85rem',
+                        fontSize: '0.82rem',
                         color: '#fff',
                         fontWeight: 600
                       }}
@@ -427,7 +437,7 @@ export default function Aviation() {
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.62rem',
+                        fontSize: '0.6rem',
                         color: 'var(--text-muted)',
                         display: 'block'
                       }}
@@ -437,19 +447,19 @@ export default function Aviation() {
                     <span
                       style={{
                         fontFamily: 'var(--font-sans)',
-                        fontSize: '0.85rem',
+                        fontSize: '0.82rem',
                         color: 'var(--gold-light)',
                         fontWeight: 600
                       }}
                     >
-                      Student Cadet
+                      Cadet
                     </span>
                   </div>
                   <div>
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.62rem',
+                        fontSize: '0.6rem',
                         color: 'var(--text-muted)',
                         display: 'block'
                       }}
@@ -459,7 +469,7 @@ export default function Aviation() {
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.82rem',
+                        fontSize: '0.78rem',
                         color: '#38e58a',
                         fontWeight: 600
                       }}
@@ -475,23 +485,24 @@ export default function Aviation() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
+              viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="glass-panel"
-              style={{ padding: '1.75rem' }}
+              style={{ padding: 'clamp(1.15rem, 3vw, 1.75rem)' }}
             >
               <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.75rem',
-                  marginBottom: '1rem'
+                  gap: '0.65rem',
+                  marginBottom: '0.85rem'
                 }}
               >
                 <div
                   style={{
-                    width: 32,
-                    height: 32,
+                    width: 30,
+                    height: 30,
+                    minWidth: 30,
                     borderRadius: '8px',
                     background: 'rgba(112, 153, 194, 0.12)',
                     display: 'flex',
@@ -499,12 +510,12 @@ export default function Aviation() {
                     justifyContent: 'center'
                   }}
                 >
-                  <Navigation size={16} color="var(--sky-blue)" />
+                  <Navigation size={15} color="var(--sky-blue)" />
                 </div>
                 <h3
                   style={{
                     fontFamily: 'var(--font-serif)',
-                    fontSize: '1.3rem',
+                    fontSize: '1.25rem',
                     color: '#fff',
                     fontWeight: 500
                   }}
@@ -515,11 +526,11 @@ export default function Aviation() {
 
               <p
                 style={{
-                  fontSize: '0.92rem',
+                  fontSize: 'clamp(0.88rem, 2vw, 0.94rem)',
                   color: 'var(--text-secondary)',
                   lineHeight: 1.7,
                   fontWeight: 300,
-                  marginBottom: '1.25rem'
+                  marginBottom: '1rem'
                 }}
               >
                 Aviation teaches precision, calm temperament under high standards, and unwavering
@@ -531,9 +542,10 @@ export default function Aviation() {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '1.5rem',
+                  flexWrap: 'wrap',
+                  gap: '0.75rem 1.25rem',
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '0.7rem',
+                  fontSize: '0.68rem',
                   color: 'var(--gold-primary)'
                 }}
               >

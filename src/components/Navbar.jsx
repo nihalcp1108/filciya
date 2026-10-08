@@ -17,7 +17,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
+      if (window.scrollY > 30) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -31,9 +31,11 @@ export default function Navbar() {
   // Prevent background scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
+      const original = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+      return () => {
+        document.body.style.overflow = original || '';
+      };
     }
   }, [mobileMenuOpen]);
 
@@ -45,9 +47,12 @@ export default function Navbar() {
           top: 0,
           left: 0,
           right: 0,
-          zIndex: 900,
-          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-          padding: isScrolled ? '0.75rem 0' : '1.5rem 0'
+          zIndex: 1000,
+          transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+          paddingTop: isScrolled
+            ? 'max(0.6rem, env(safe-area-inset-top, 0.6rem))'
+            : 'max(1.1rem, env(safe-area-inset-top, 1.1rem))',
+          paddingBottom: isScrolled ? '0.6rem' : '1.1rem'
         }}
       >
         <div className="container">
@@ -56,14 +61,16 @@ export default function Navbar() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              padding: isScrolled ? '0.6rem 1.4rem' : '0.8rem 1.2rem',
+              padding: isScrolled ? '0.55rem 1.25rem' : '0.75rem 1.25rem',
               borderRadius: '9999px',
-              background: isScrolled ? 'rgba(8, 11, 18, 0.82)' : 'transparent',
-              backdropFilter: isScrolled ? 'blur(16px)' : 'none',
-              WebkitBackdropFilter: isScrolled ? 'blur(16px)' : 'none',
-              border: isScrolled ? '1px solid rgba(212, 175, 55, 0.16)' : '1px solid transparent',
-              boxShadow: isScrolled ? '0 12px 30px -10px rgba(0, 0, 0, 0.5)' : 'none',
-              transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+              background: isScrolled ? 'rgba(8, 11, 18, 0.88)' : 'rgba(8, 11, 18, 0.4)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              border: isScrolled
+                ? '1px solid rgba(212, 175, 55, 0.2)'
+                : '1px solid rgba(255, 255, 255, 0.08)',
+              boxShadow: isScrolled ? '0 12px 30px -10px rgba(0, 0, 0, 0.6)' : 'none',
+              transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
             {/* Logo */}
@@ -81,12 +88,13 @@ export default function Navbar() {
                 style={{
                   width: 32,
                   height: 32,
+                  minWidth: 32,
                   borderRadius: '50%',
                   border: '1px solid var(--gold-primary)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  background: 'rgba(212, 175, 55, 0.08)'
+                  background: 'rgba(212, 175, 55, 0.1)'
                 }}
               >
                 <Compass size={16} color="var(--gold-primary)" />
@@ -95,7 +103,7 @@ export default function Navbar() {
                 <span
                   style={{
                     fontFamily: 'var(--font-serif)',
-                    fontSize: '1.2rem',
+                    fontSize: 'clamp(1.05rem, 3vw, 1.25rem)',
                     letterSpacing: '0.08em',
                     fontWeight: 600,
                     lineHeight: 1
@@ -106,8 +114,8 @@ export default function Navbar() {
                 <span
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.6rem',
-                    letterSpacing: '0.22em',
+                    fontSize: '0.58rem',
+                    letterSpacing: '0.2em',
                     color: 'var(--gold-primary)',
                     textTransform: 'uppercase',
                     marginTop: '2px'
@@ -123,7 +131,7 @@ export default function Navbar() {
               style={{
                 display: 'none',
                 alignItems: 'center',
-                gap: '2rem'
+                gap: '1.75rem'
               }}
               className="desktop-nav"
             >
@@ -133,13 +141,14 @@ export default function Navbar() {
                   href={item.href}
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.8rem',
+                    fontSize: '0.78rem',
                     letterSpacing: '0.12em',
                     textTransform: 'uppercase',
                     color: 'var(--text-secondary)',
                     textDecoration: 'none',
                     transition: 'color 0.25s ease',
-                    position: 'relative'
+                    position: 'relative',
+                    padding: '0.3rem 0'
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-primary)')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
@@ -152,8 +161,9 @@ export default function Navbar() {
                 href="#contact"
                 className="btn-primary"
                 style={{
-                  padding: '0.55rem 1.25rem',
-                  fontSize: '0.75rem',
+                  padding: '0.5rem 1.25rem',
+                  fontSize: '0.74rem',
+                  minHeight: '40px',
                   gap: '0.4rem'
                 }}
               >
@@ -164,69 +174,129 @@ export default function Navbar() {
             {/* Mobile Hamburger Trigger */}
             <button
               type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
+              onClick={() => setMobileMenuOpen(true)}
+              aria-label="Open Navigation Menu"
               style={{
                 background: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                border: '1px solid rgba(212, 175, 55, 0.3)',
                 borderRadius: '50%',
-                width: 42,
-                height: 42,
+                width: 44,
+                height: 44,
+                minWidth: 44,
+                minHeight: 44,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#fff',
                 cursor: 'pointer',
-                transition: 'all 0.25s ease'
+                transition: 'all 0.25s ease',
+                touchAction: 'manipulation'
               }}
               className="mobile-burger-btn"
             >
-              {mobileMenuOpen ? <X size={20} color="var(--gold-primary)" /> : <Menu size={20} />}
+              <Menu size={20} color="var(--gold-primary)" />
             </button>
           </nav>
         </div>
       </header>
 
-      {/* Mobile Full-Screen Menu Overlay */}
+      {/* Mobile Full-Screen Menu Overlay (Layered above Navbar at z-index: 2000) */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             style={{
               position: 'fixed',
-              top: 0,
-              left: 0,
+              inset: 0,
               width: '100vw',
-              height: '100vh',
-              background: 'radial-gradient(circle at 50% 30%, #0d1322 0%, #06080e 100%)',
-              zIndex: 899,
+              height: '100dvh',
+              minHeight: '100vh',
+              background: 'radial-gradient(circle at 50% 25%, #0f1628 0%, #06080e 100%)',
+              zIndex: 2000,
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center',
+              justifyContent: 'space-between',
               alignItems: 'center',
-              padding: '2rem'
+              paddingTop: 'max(24px, env(safe-area-inset-top, 24px))',
+              paddingBottom: 'max(24px, env(safe-area-inset-bottom, 24px))',
+              paddingLeft: 'max(20px, env(safe-area-inset-left, 20px))',
+              paddingRight: 'max(20px, env(safe-area-inset-right, 20px))',
+              boxSizing: 'border-box'
             }}
           >
+            {/* Top Bar inside Overlay */}
+            <div
+              style={{
+                width: '100%',
+                maxWidth: '500px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                <Compass size={18} color="var(--gold-primary)" />
+                <span
+                  style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: '1.2rem',
+                    letterSpacing: '0.06em',
+                    fontWeight: 600,
+                    color: '#fff'
+                  }}
+                >
+                  FILCIYA PS
+                </span>
+              </div>
+
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close Navigation Menu"
+                style={{
+                  width: 48,
+                  height: 48,
+                  minWidth: 48,
+                  minHeight: 48,
+                  borderRadius: '50%',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1.5px solid rgba(212, 175, 55, 0.4)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#fff',
+                  cursor: 'pointer',
+                  touchAction: 'manipulation'
+                }}
+              >
+                <X size={22} color="var(--gold-primary)" />
+              </button>
+            </div>
+
+            {/* Menu Links */}
             <div
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '1.75rem',
-                textAlign: 'center'
+                gap: 'clamp(1rem, 3.5vh, 1.8rem)',
+                textAlign: 'center',
+                width: '100%',
+                maxWidth: '400px'
               }}
             >
               <div
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '0.7rem',
-                  letterSpacing: '0.25em',
+                  fontSize: '0.68rem',
+                  letterSpacing: '0.22em',
                   color: 'var(--gold-primary)',
                   textTransform: 'uppercase',
-                  marginBottom: '0.5rem'
+                  marginBottom: '0.2rem'
                 }}
               >
                 NAVIGATION
@@ -239,17 +309,19 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.08 * idx, duration: 0.3 }}
+                  transition={{ delay: 0.05 * idx, duration: 0.25 }}
                   style={{
                     fontFamily: 'var(--font-serif)',
-                    fontSize: '2.2rem',
-                    color: '#fff',
+                    fontSize: 'clamp(1.75rem, 6vw, 2.3rem)',
+                    color: '#ffffff',
                     textDecoration: 'none',
                     fontWeight: 300,
-                    letterSpacing: '0.04em'
+                    letterSpacing: '0.04em',
+                    display: 'block',
+                    padding: '0.25rem 1rem'
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-primary)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#fff')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = '#ffffff')}
                 >
                   {item.name}
                 </motion.a>
@@ -260,22 +332,26 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.3 }}
+                transition={{ delay: 0.35, duration: 0.25 }}
                 className="btn-primary"
-                style={{ marginTop: '1rem' }}
+                style={{
+                  marginTop: '0.5rem',
+                  width: '100%',
+                  maxWidth: '260px'
+                }}
               >
                 Let's Connect <ArrowUpRight size={16} />
               </motion.a>
             </div>
 
+            {/* Bottom Footnote inside Overlay */}
             <div
               style={{
-                position: 'absolute',
-                bottom: '2rem',
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.7rem',
+                fontSize: '0.68rem',
                 color: 'var(--text-muted)',
-                letterSpacing: '0.15em'
+                letterSpacing: '0.14em',
+                textAlign: 'center'
               }}
             >
               ALPHA ACADEMY · TIRUR, KERALA

@@ -37,6 +37,19 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --transition-smooth: all 0.4s var(--ease-out-expo);
+
+  /* Safe Area Variables with Fallbacks */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  /* Stacking Hierarchy */
+  --z-content: 1;
+  --z-navbar: 1000;
+  --z-mobile-menu: 2000;
+  --z-lightbox: 10000;
+  --z-lightbox-controls: 10005;
 }
 
 /* Base Styles */
@@ -46,6 +59,15 @@
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
 html {
   scroll-behavior: smooth;
   background-color: var(--bg-primary);
@@ -53,17 +75,12 @@ html {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
-  overflow-x: hidden;
-  position: relative;
-  selection-background-color: var(--gold-primary);
-  selection-color: #06080e;
 }
 
 ::selection {
@@ -71,7 +88,7 @@ body {
   color: #fff;
 }
 
-/* Subtle background grain & flight radar aura */
+/* Atmospheric Ambient Grain / Radial Gradient */
 body::before {
   content: '';
   position: fixed;
@@ -107,14 +124,20 @@ body::before {
   display: inline-block;
 }
 
-/* Layout Utilities */
+/* Layout Container */
 .container {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1.25rem;
   position: relative;
   z-index: 1;
+}
+
+@media (min-width: 480px) {
+  .container {
+    padding: 0 1.75rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -130,15 +153,9 @@ body::before {
 }
 
 .section {
-  padding: 7rem 0;
+  padding: clamp(4rem, 8vw, 7.5rem) 0;
   position: relative;
   z-index: 1;
-}
-
-@media (max-width: 768px) {
-  .section {
-    padding: 4.5rem 0;
-  }
 }
 
 /* Section Header Typography */
@@ -147,34 +164,39 @@ body::before {
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: clamp(0.68rem, 2vw, 0.75rem);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--gold-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
+  max-width: 100%;
+  flex-wrap: wrap;
 }
 
 .section-tag::before {
   content: '';
   display: inline-block;
-  width: 18px;
+  width: 16px;
   height: 1px;
   background: var(--gold-primary);
+  flex-shrink: 0;
 }
 
 .section-title {
   font-family: var(--font-serif);
-  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-size: clamp(2rem, 5.5vw, 4rem);
   font-weight: 400;
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--text-primary);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .section-subtitle {
-  font-size: 1.05rem;
+  font-size: clamp(0.92rem, 2vw, 1.05rem);
   color: var(--text-secondary);
   max-width: 620px;
   line-height: 1.7;
@@ -185,12 +207,14 @@ body::before {
 .btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.95rem 2rem;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 48px;
+  padding: 0.85rem 1.75rem;
   background: var(--gold-gradient);
   color: #07090f;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -202,6 +226,8 @@ body::before {
   box-shadow: 0 4px 20px rgba(212, 175, 55, 0.25);
   position: relative;
   overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary:hover {
@@ -209,15 +235,21 @@ body::before {
   box-shadow: 0 6px 30px rgba(212, 175, 55, 0.45);
 }
 
+.btn-primary:active {
+  transform: translateY(0);
+}
+
 .btn-secondary {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.95rem 2rem;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 48px;
+  padding: 0.85rem 1.75rem;
   background: rgba(255, 255, 255, 0.04);
   color: var(--text-primary);
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -227,6 +259,8 @@ body::before {
   cursor: pointer;
   backdrop-filter: blur(8px);
   transition: all 0.35s var(--ease-out-expo);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn-secondary:hover {
@@ -234,6 +268,10 @@ body::before {
   background: rgba(212, 175, 55, 0.08);
   color: #fff;
   transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
 }
 
 /* Glass Card */
@@ -249,6 +287,11 @@ body::before {
 .glass-panel:hover {
   border-color: var(--twilight-border);
   box-shadow: 0 10px 35px -10px rgba(0, 0, 0, 0.5), 0 0 25px rgba(212, 175, 55, 0.06);
+}
+
+/* Input Fields (font-size 16px to prevent iOS auto-zoom on mobile!) */
+input, textarea, select {
+  font-size: 16px !important;
 }
 
 /* Custom Scrollbar */

@@ -20,7 +20,9 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const mailtoSubject = encodeURIComponent(formData.subject || `Inquiry from ${formData.name || 'Portfolio Visitor'}`);
+    const mailtoSubject = encodeURIComponent(
+      formData.subject || `Inquiry from ${formData.name || 'Portfolio Visitor'}`
+    );
     const mailtoBody = encodeURIComponent(
       `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
     );
@@ -31,11 +33,11 @@ export default function Contact() {
     <section id="contact" className="section" style={{ position: 'relative' }}>
       <div className="container">
         {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 4.5rem' }}>
+        <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto clamp(2rem, 5vw, 3.5rem)' }}>
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6 }}
             className="section-tag"
             style={{ justifyContent: 'center' }}
@@ -46,7 +48,7 @@ export default function Contact() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.8, delay: 0.1 }}
             className="section-title"
           >
@@ -56,10 +58,10 @@ export default function Contact() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.8, delay: 0.2 }}
             style={{
-              fontSize: '1.05rem',
+              fontSize: 'clamp(0.95rem, 2vw, 1.05rem)',
               color: 'var(--text-secondary)',
               lineHeight: 1.7,
               fontWeight: 300,
@@ -70,12 +72,53 @@ export default function Contact() {
           </motion.p>
         </div>
 
+        {/* Quick Action Buttons Group: Email Me, Call, Instagram */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.7 }}
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '0.85rem',
+            marginBottom: 'clamp(2.5rem, 5vw, 3.5rem)',
+            width: '100%'
+          }}
+          className="contact-quick-actions"
+        >
+          <a
+            href="mailto:filciaps@gmail.com"
+            className="btn-primary contact-action-btn"
+            style={{ minHeight: '48px', padding: '0.85rem 1.6rem' }}
+          >
+            <Mail size={16} /> Email Me
+          </a>
+          <a
+            href="tel:8891986204"
+            className="btn-secondary contact-action-btn"
+            style={{ minHeight: '48px', padding: '0.85rem 1.6rem' }}
+          >
+            <Phone size={16} /> Call
+          </a>
+          <a
+            href="https://www.instagram.com/filziyahhh/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-secondary contact-action-btn"
+            style={{ minHeight: '48px', padding: '0.85rem 1.6rem' }}
+          >
+            <InstagramIcon size={16} /> Instagram
+          </a>
+        </motion.div>
+
         {/* 2-Column Grid */}
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(12, 1fr)',
-            gap: '3rem',
+            gap: 'clamp(1.75rem, 4vw, 3rem)',
             alignItems: 'start'
           }}
           className="contact-grid"
@@ -86,7 +129,7 @@ export default function Contact() {
               gridColumn: 'span 5',
               display: 'flex',
               flexDirection: 'column',
-              gap: '1.5rem'
+              gap: '1.25rem'
             }}
             className="contact-cards-col"
           >
@@ -94,24 +137,25 @@ export default function Contact() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
+              viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6 }}
               className="glass-panel"
-              style={{ padding: '1.75rem' }}
+              style={{ padding: 'clamp(1.25rem, 3vw, 1.75rem)' }}
             >
               <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  marginBottom: '1rem'
+                  marginBottom: '0.85rem'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
                   <div
                     style={{
-                      width: 40,
-                      height: 40,
+                      width: 36,
+                      height: 36,
+                      minWidth: 36,
                       borderRadius: '10px',
                       background: 'rgba(212, 175, 55, 0.12)',
                       display: 'flex',
@@ -120,12 +164,12 @@ export default function Contact() {
                       color: 'var(--gold-primary)'
                     }}
                   >
-                    <Mail size={18} />
+                    <Mail size={17} />
                   </div>
                   <span
                     style={{
                       fontFamily: 'var(--font-mono)',
-                      fontSize: '0.68rem',
+                      fontSize: '0.65rem',
                       letterSpacing: '0.15em',
                       color: 'var(--text-muted)',
                       textTransform: 'uppercase'
@@ -149,7 +193,9 @@ export default function Contact() {
                     gap: '0.3rem',
                     fontFamily: 'var(--font-mono)',
                     fontSize: '0.68rem',
-                    transition: 'color 0.2s ease'
+                    padding: '0.3rem 0.5rem',
+                    transition: 'color 0.2s ease',
+                    touchAction: 'manipulation'
                   }}
                 >
                   {copied ? <Check size={14} /> : <Copy size={14} />}
@@ -161,18 +207,19 @@ export default function Contact() {
                 href="mailto:filciaps@gmail.com"
                 style={{
                   fontFamily: 'var(--font-serif)',
-                  fontSize: '1.35rem',
+                  fontSize: 'clamp(1.15rem, 3.5vw, 1.35rem)',
                   color: '#fff',
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.5rem',
-                  transition: 'color 0.2s ease'
+                  gap: '0.45rem',
+                  transition: 'color 0.2s ease',
+                  wordBreak: 'break-all'
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-primary)')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#fff')}
               >
-                filciaps@gmail.com <ArrowUpRight size={16} />
+                filciaps@gmail.com <ArrowUpRight size={15} />
               </a>
             </motion.div>
 
@@ -180,23 +227,24 @@ export default function Contact() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.6, delay: 0.08 }}
               className="glass-panel"
-              style={{ padding: '1.75rem' }}
+              style={{ padding: 'clamp(1.25rem, 3vw, 1.75rem)' }}
             >
               <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.75rem',
-                  marginBottom: '1rem'
+                  gap: '0.65rem',
+                  marginBottom: '0.85rem'
                 }}
               >
                 <div
                   style={{
-                    width: 40,
-                    height: 40,
+                    width: 36,
+                    height: 36,
+                    minWidth: 36,
                     borderRadius: '10px',
                     background: 'rgba(112, 153, 194, 0.12)',
                     display: 'flex',
@@ -205,12 +253,12 @@ export default function Contact() {
                     color: 'var(--sky-blue)'
                   }}
                 >
-                  <Phone size={18} />
+                  <Phone size={17} />
                 </div>
                 <span
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.68rem',
+                    fontSize: '0.65rem',
                     letterSpacing: '0.15em',
                     color: 'var(--text-muted)',
                     textTransform: 'uppercase'
@@ -224,18 +272,18 @@ export default function Contact() {
                 href="tel:8891986204"
                 style={{
                   fontFamily: 'var(--font-serif)',
-                  fontSize: '1.35rem',
+                  fontSize: 'clamp(1.15rem, 3.5vw, 1.35rem)',
                   color: '#fff',
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.5rem',
+                  gap: '0.45rem',
                   transition: 'color 0.2s ease'
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-primary)')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#fff')}
               >
-                +91 8891986204 <ArrowUpRight size={16} />
+                +91 8891986204 <ArrowUpRight size={15} />
               </a>
             </motion.div>
 
@@ -243,23 +291,24 @@ export default function Contact() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.6, delay: 0.16 }}
               className="glass-panel"
-              style={{ padding: '1.75rem' }}
+              style={{ padding: 'clamp(1.25rem, 3vw, 1.75rem)' }}
             >
               <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.75rem',
-                  marginBottom: '1rem'
+                  gap: '0.65rem',
+                  marginBottom: '0.85rem'
                 }}
               >
                 <div
                   style={{
-                    width: 40,
-                    height: 40,
+                    width: 36,
+                    height: 36,
+                    minWidth: 36,
                     borderRadius: '10px',
                     background: 'rgba(212, 175, 55, 0.12)',
                     display: 'flex',
@@ -268,12 +317,12 @@ export default function Contact() {
                     color: 'var(--gold-primary)'
                   }}
                 >
-                  <InstagramIcon size={18} />
+                  <InstagramIcon size={17} />
                 </div>
                 <span
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.68rem',
+                    fontSize: '0.65rem',
                     letterSpacing: '0.15em',
                     color: 'var(--text-muted)',
                     textTransform: 'uppercase'
@@ -289,18 +338,18 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 style={{
                   fontFamily: 'var(--font-serif)',
-                  fontSize: '1.35rem',
+                  fontSize: 'clamp(1.15rem, 3.5vw, 1.35rem)',
                   color: '#fff',
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.5rem',
+                  gap: '0.45rem',
                   transition: 'color 0.2s ease'
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-primary)')}
                 onMouseLeave={(e) => (e.currentTarget.style.color = '#fff')}
               >
-                @filziyahhh <ArrowUpRight size={16} />
+                @filziyahhh <ArrowUpRight size={15} />
               </a>
             </motion.div>
 
@@ -308,24 +357,24 @@ export default function Contact() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.6, delay: 0.24 }}
               className="glass-panel"
-              style={{ padding: '1.75rem' }}
+              style={{ padding: 'clamp(1.25rem, 3vw, 1.75rem)' }}
             >
               <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.75rem',
-                  marginBottom: '0.75rem'
+                  gap: '0.65rem',
+                  marginBottom: '0.65rem'
                 }}
               >
-                <MapPin size={18} color="var(--gold-primary)" />
+                <MapPin size={17} color="var(--gold-primary)" />
                 <span
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.68rem',
+                    fontSize: '0.65rem',
                     letterSpacing: '0.15em',
                     color: 'var(--text-muted)',
                     textTransform: 'uppercase'
@@ -338,14 +387,14 @@ export default function Contact() {
               <p
                 style={{
                   fontFamily: 'var(--font-sans)',
-                  fontSize: '0.92rem',
+                  fontSize: 'clamp(0.86rem, 2vw, 0.92rem)',
                   color: 'var(--text-primary)',
                   lineHeight: 1.6
                 }}
               >
                 Nedumparabu, Moonniyur, Malappuram
                 <br />
-                <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>
                   Kerala, India – 676311
                 </span>
               </p>
@@ -355,19 +404,19 @@ export default function Contact() {
           {/* Right Column: Direct Mail Composer Form */}
           <div style={{ gridColumn: 'span 7' }} className="contact-form-col">
             <motion.div
-              initial={{ opacity: 0, x: 25 }}
+              initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.75, delay: 0.15 }}
               className="glass-panel"
-              style={{ padding: '2.5rem' }}
+              style={{ padding: 'clamp(1.5rem, 4vw, 2.5rem)' }}
             >
-              <div style={{ marginBottom: '2rem' }}>
+              <div style={{ marginBottom: '1.75rem' }}>
                 <span
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.7rem',
-                    letterSpacing: '0.2em',
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.18em',
                     color: 'var(--gold-primary)',
                     textTransform: 'uppercase'
                   }}
@@ -377,7 +426,7 @@ export default function Contact() {
                 <h3
                   style={{
                     fontFamily: 'var(--font-serif)',
-                    fontSize: '1.9rem',
+                    fontSize: 'clamp(1.5rem, 3.5vw, 1.9rem)',
                     color: '#fff',
                     marginTop: '0.35rem',
                     fontWeight: 500
@@ -387,22 +436,22 @@ export default function Contact() {
                 </h3>
                 <p
                   style={{
-                    fontSize: '0.88rem',
+                    fontSize: 'clamp(0.85rem, 1.8vw, 0.9rem)',
                     color: 'var(--text-secondary)',
-                    marginTop: '0.4rem',
+                    marginTop: '0.35rem',
                     fontWeight: 300
                   }}
                 >
-                  Composes directly into your preferred email client to reach Filciya PS.
+                  Composes directly into your email client to reach Filciya PS.
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                    gap: '1.25rem'
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                    gap: '1rem'
                   }}
                 >
                   <div>
@@ -411,11 +460,11 @@ export default function Contact() {
                       style={{
                         display: 'block',
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.7rem',
+                        fontSize: '0.68rem',
                         letterSpacing: '0.1em',
                         color: 'var(--text-secondary)',
                         textTransform: 'uppercase',
-                        marginBottom: '0.5rem'
+                        marginBottom: '0.45rem'
                       }}
                     >
                       Your Name
@@ -430,12 +479,12 @@ export default function Contact() {
                       style={{
                         width: '100%',
                         padding: '0.85rem 1rem',
-                        background: 'rgba(7, 10, 18, 0.7)',
+                        background: 'rgba(7, 10, 18, 0.75)',
                         border: '1px solid rgba(255, 255, 255, 0.1)',
                         borderRadius: '10px',
                         color: '#fff',
                         fontFamily: 'var(--font-sans)',
-                        fontSize: '0.92rem',
+                        fontSize: '16px',
                         outline: 'none',
                         transition: 'border-color 0.25s ease'
                       }}
@@ -450,11 +499,11 @@ export default function Contact() {
                       style={{
                         display: 'block',
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.7rem',
+                        fontSize: '0.68rem',
                         letterSpacing: '0.1em',
                         color: 'var(--text-secondary)',
                         textTransform: 'uppercase',
-                        marginBottom: '0.5rem'
+                        marginBottom: '0.45rem'
                       }}
                     >
                       Your Email
@@ -469,12 +518,12 @@ export default function Contact() {
                       style={{
                         width: '100%',
                         padding: '0.85rem 1rem',
-                        background: 'rgba(7, 10, 18, 0.7)',
+                        background: 'rgba(7, 10, 18, 0.75)',
                         border: '1px solid rgba(255, 255, 255, 0.1)',
                         borderRadius: '10px',
                         color: '#fff',
                         fontFamily: 'var(--font-sans)',
-                        fontSize: '0.92rem',
+                        fontSize: '16px',
                         outline: 'none',
                         transition: 'border-color 0.25s ease'
                       }}
@@ -490,11 +539,11 @@ export default function Contact() {
                     style={{
                       display: 'block',
                       fontFamily: 'var(--font-mono)',
-                      fontSize: '0.7rem',
+                      fontSize: '0.68rem',
                       letterSpacing: '0.1em',
                       color: 'var(--text-secondary)',
                       textTransform: 'uppercase',
-                      marginBottom: '0.5rem'
+                      marginBottom: '0.45rem'
                     }}
                   >
                     Subject
@@ -509,12 +558,12 @@ export default function Contact() {
                     style={{
                       width: '100%',
                       padding: '0.85rem 1rem',
-                      background: 'rgba(7, 10, 18, 0.7)',
+                      background: 'rgba(7, 10, 18, 0.75)',
                       border: '1px solid rgba(255, 255, 255, 0.1)',
                       borderRadius: '10px',
                       color: '#fff',
                       fontFamily: 'var(--font-sans)',
-                      fontSize: '0.92rem',
+                      fontSize: '16px',
                       outline: 'none',
                       transition: 'border-color 0.25s ease'
                     }}
@@ -529,11 +578,11 @@ export default function Contact() {
                     style={{
                       display: 'block',
                       fontFamily: 'var(--font-mono)',
-                      fontSize: '0.7rem',
+                      fontSize: '0.68rem',
                       letterSpacing: '0.1em',
                       color: 'var(--text-secondary)',
                       textTransform: 'uppercase',
-                      marginBottom: '0.5rem'
+                      marginBottom: '0.45rem'
                     }}
                   >
                     Message
@@ -548,12 +597,12 @@ export default function Contact() {
                     style={{
                       width: '100%',
                       padding: '0.85rem 1rem',
-                      background: 'rgba(7, 10, 18, 0.7)',
+                      background: 'rgba(7, 10, 18, 0.75)',
                       border: '1px solid rgba(255, 255, 255, 0.1)',
                       borderRadius: '10px',
                       color: '#fff',
                       fontFamily: 'var(--font-sans)',
-                      fontSize: '0.92rem',
+                      fontSize: '16px',
                       outline: 'none',
                       resize: 'vertical',
                       transition: 'border-color 0.25s ease'
@@ -569,7 +618,8 @@ export default function Contact() {
                   style={{
                     width: '100%',
                     justifyContent: 'center',
-                    marginTop: '0.5rem'
+                    marginTop: '0.35rem',
+                    minHeight: '48px'
                   }}
                 >
                   Send Transmission <Send size={15} />
@@ -588,6 +638,16 @@ export default function Contact() {
           .contact-cards-col,
           .contact-form-col {
             grid-column: 1 / -1 !important;
+          }
+        }
+
+        @media (max-width: 520px) {
+          .contact-quick-actions {
+            flex-direction: column !important;
+          }
+          .contact-action-btn {
+            width: 100% !important;
+            justify-content: center !important;
           }
         }
       `}</style>

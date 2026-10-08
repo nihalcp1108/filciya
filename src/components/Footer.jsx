@@ -13,7 +13,8 @@ export default function Footer() {
         position: 'relative',
         background: '#04060a',
         borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-        padding: '5rem 0 3rem',
+        paddingTop: 'clamp(3.5rem, 6vw, 5rem)',
+        paddingBottom: 'max(2.5rem, env(safe-area-inset-bottom, 2.5rem))',
         overflow: 'hidden'
       }}
     >
